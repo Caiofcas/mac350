@@ -93,7 +93,7 @@ CREATE TABLE amostra (
 	UNIQUE (id_paciente, id_exame, codigo_amostra)
 );
 
---Relacionamento log_table
+--Relacionamento registro
 CREATE TABLE registro (
     id_usuario INT NOT NULL references usuario(id_usuario),
     id_servico INT NOT NULL references servico(id_servico),

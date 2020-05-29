@@ -43,4 +43,59 @@ values (
 
 --Relacionamentos
 
+insert into possui
+values (
+	1,
+	11
+);
+
+insert into pertence
+values (
+	111,
+	11
+);
+
+insert into gerencia
+values (
+	111,
+	11111
+);
+
+insert into tutelamento
+values (
+	2,
+	1,
+	111,
+	11,
+	to_date('2015 02 11', 'YYYY MM DD'),
+	to_date('2018 02 11', 'YYYY MM DD')
+);
+
+insert into realiza
+values (
+	1111,
+	11111,
+	'abcde11',
+	to_date('2020 02 11', 'YYYY MM DD')
+);
+
 --Agregados
+
+insert into amostra
+values (
+	1111,
+	11111,
+	'abcde11',
+	'oral',
+	'saliva'
+);
+
+-- Registros
+
+insert into registro
+values (
+	1,
+	111,
+	11111,
+	to_date('2020 02 11', 'YYYY MM DD')
+);
