@@ -36,11 +36,11 @@ CREATE TABLE paciente (
 	UNIQUE (cpf)
 );
 
-CREATE TABLE exame {
-    id_exame INT NOT NULL PRIMARY KEY,
-    tipo VARCHAR(255) NOT NULL,
-    virus VARCHAR(255) NOT NULL,
-}
+-CREATE TABLE exame (
+    id_exame    INT NOT NULL PRIMARY KEY,
+    tipo    VARCHAR(255) NOT NULL,
+    virus    VARCHAR(255) NOT NULL,
+	UNIQUE (tipo, virus)
 
 --Relacionamentos
 
