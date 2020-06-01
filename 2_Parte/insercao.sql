@@ -35,11 +35,37 @@ values (
 );
 
 insert into exame
-values (
-	11111,
-	'PCR',
-	'SARS-CoV-2019'
-);
+values 
+	(
+		11111,
+		'PCR',
+		'SARS-CoV-2019'
+	),
+	(
+		11112,
+		'anticorpos',
+		'SARS-CoV-2019'
+	),
+	(
+		11113,
+		'PCR',
+		'H1N1'
+	),
+	(
+		11114,
+		'anticorpos',
+		'H5N1'
+	),
+	(
+		11115,
+		'PCR',
+		'HIV'
+	),
+	(
+		11116,
+		'anticorpos',
+		'H1N1'
+	);
 
 --Relacionamentos
 
@@ -72,11 +98,40 @@ values (
 );
 
 insert into realiza
-values (
+values 
+(
 	1111,
 	11111,
 	'abcde11',
 	to_date('2020 02 11', 'YYYY MM DD')
+),
+(
+	1111,
+	11112,
+	'abcde12',
+	to_date('2020 05 31', 'YYYY MM DD')
+),
+(
+	1111,
+	11113,
+	'abcde13',
+	to_date('2020 05 30', 'YYYY MM DD')
+),
+(	1111,
+	11114,
+	'abcde14',
+	to_date('2020 05 29', 'YYYY MM DD')
+),
+(	1111,
+	11115,
+	'abcde15',
+	to_date('2020 05 28', 'YYYY MM DD')
+),
+(
+	1111,
+	11116,
+	'abcde16',
+	to_date('2020 05 27', 'YYYY MM DD')
 );
 
 --Agregados
@@ -92,10 +147,43 @@ values (
 
 -- Registros
 
-insert into registro
-values (
+insert into registro -- (TODO - Andrade): Fazer essa inserção
+-- quando o tipo da coluna "data_de_solicitacao" for alterado de
+-- "date" para "TIMESTAMP
+values 
+(
 	1,
 	111,
 	11111,
-	to_date('2020 02 11', 'YYYY MM DD')
+	to_date('2020 02 10', 'YYYY MM DD')
+),
+(
+	1,
+	111,
+	11112,
+	to_date('2020 05 30', 'YYYY MM DD')
+),
+(
+	1,
+	111,
+	11113,
+	to_date('2020 05 29', 'YYYY MM DD')
+),
+(
+	1,
+	111,
+	11114,
+	to_date('2020 05 28', 'YYYY MM DD')
+),
+(
+	1,
+	111,
+	11115,
+	to_date('2020 05 27', 'YYYY MM DD')
+),
+(
+	1,
+	111,
+	11116,
+	to_date('2020 05 20', 'YYYY MM DD')
 );
