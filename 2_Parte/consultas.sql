@@ -11,10 +11,7 @@ WHERE e.id_exame = rea.id_exame AND e.id_exame = reg.id_exame
 SELECT rea.id_exame, rea.data_de_realizacao, reg.data_de_solicitacao
 FROM realiza as rea, registro as reg
 WHERE rea.id_exame = reg.id_exame
-ORDER BY 
-	DATE_PART('month', rea.data_de_realizacao - reg.data_de_solicitacao) * 24 * 31 +
-	DATE_PART('day', rea.data_de_realizacao - reg.data_de_solicitacao) * 24 + 
-	DATE_PART('hour', rea.data_de_realizacao - reg.data_de_solicitacao)
+ORDER BY rea.data_de_realizacao - reg.data_de_solicitacao
 LIMIT 5;
 
 -- 4.3) Liste os serviços que podem ser realizados pelos usuários
