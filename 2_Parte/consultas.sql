@@ -31,5 +31,21 @@ WHERE
 
 -- 4.4) Liste os serviços que podem ser utilizados por usuários tutelados (dependentes)
 
+SELECT usuario.nome, servico.nome, servico.classe
+FROM usuario, tutelamento, servico
+WHERE 
+	usuario.id_usuario = tutelamento.id_usuario_tutelado AND
+	tutelamento.id_servico = servico.id_servico
+
 -- 4.5) Liste em ordem crescente o total de serviços utilizados agrupados pelos tipos de
 -- serviços disponíveis e pelo perfil dos usuários.
+SELECT perfil.tipo, servico.classe, COUNT(servico.classe)
+FROM 
+    perfil,
+	possui,
+	pertence,
+    servico
+WHERE
+	perfil.id_perfil = pertence.id_perfil AND
+	pertence.id_servico = servico.id_servico
+GROUP BY servico.classe,  perfil.tipo
