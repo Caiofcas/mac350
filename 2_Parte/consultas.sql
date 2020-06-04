@@ -42,13 +42,16 @@ WHERE
 
 -- 4.5) Liste em ordem crescente o total de serviços utilizados agrupados pelos tipos de
 -- serviços disponíveis e pelo perfil dos usuários.
-SELECT perfil.tipo, servico.classe, COUNT(servico.classe)
-FROM 
-    perfil,
-	possui,
+
+SELECT perfil.tipo, servico.nome, COUNT(servico.id_servico) as quantidade
+FROM
+	registro,
+	perfil,
 	pertence,
-    servico
+	servico
 WHERE
 	perfil.id_perfil = pertence.id_perfil AND
-	pertence.id_servico = servico.id_servico
-GROUP BY servico.classe,  perfil.tipo
+	pertence.id_servico = servico.id_servico AND
+	servico.id_servico = registro.id_servico
+GROUP BY servico.nome,  perfil.tipo
+ORDER BY quantidade DESC
