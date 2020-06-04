@@ -23,7 +23,7 @@ CREATE TABLE perfil (
 CREATE TABLE servico (
     id_servico    INT NOT NULL PRIMARY KEY,
     nome    VARCHAR(255) NOT NULL,
-    classe    VARCHAR(255) NOT NULL CHECK (classe IN ('visualização', 'inserção', 'alteração', 'remoção','solicitação')),
+    classe    VARCHAR(255) NOT NULL CHECK (classe IN ('visualização', 'inserção', 'alteração', 'remoção')),
 	UNIQUE (nome, classe)
 );
 
@@ -83,6 +83,7 @@ CREATE TABLE realiza (
     id_paciente    INT NOT NULL references paciente(id_paciente),
     id_exame    INT NOT NULL references exame(id_exame),
     codigo_amostra    VARCHAR(255),
+    data_de_solicitacao TIMESTAMP,
     data_de_realizacao TIMESTAMP,
 	UNIQUE (id_paciente, id_exame, data_de_realizacao)
 );
@@ -104,6 +105,5 @@ CREATE TABLE registro (
     id_usuario INT NOT NULL references usuario(id_usuario),
     id_servico INT NOT NULL references servico(id_servico),
     id_exame INT NOT NULL references exame(id_exame),
-    data_de_solicitacao TIMESTAMP NOT NULL,
     UNIQUE (id_servico,id_usuario,id_exame)
 );

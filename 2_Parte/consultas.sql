@@ -1,22 +1,25 @@
--- 4.1) Lista todos exames realizados, com seus respectivos tipos, bem como os seus usuários com suas
+-- 4.1) Lista todos exames realizados, com seus respectivos tipos, bem como os seus pacientes com suas
 -- respectivas datas de solitação e execução
 
-SELECT e.tipo, reg.data_de_solicitacao, rea.data_de_realizacao, u.nome
-FROM exame as e, realiza as rea, registro as reg, usuario as u
-WHERE e.id_exame = rea.id_exame AND e.id_exame = reg.id_exame
+SELECT e.tipo, rea.data_de_solicitacao, rea.data_de_realizacao, p.nome
+FROM exame as e, realiza as rea, paciente as p
+WHERE 
+	e.id_exame = rea.id_exame AND 
+	rea.id_paciente = p.id_paciente AND
+	rea.data_de_realizacao IS NOT NULL
 
 -- 4.2) Liste os 5 exames realizados com maior eficiencia (isto é, menor diferença de tempo entre 
 -- data de realização e data de solicitação)
 
-SELECT rea.id_exame, rea.data_de_realizacao, reg.data_de_solicitacao
-FROM realiza as rea, registro as reg
-WHERE rea.id_exame = reg.id_exame
-ORDER BY rea.data_de_realizacao - reg.data_de_solicitacao
+SELECT rea.id_exame, rea.data_de_realizacao, rea.data_de_solicitacao
+FROM realiza as rea
+WHERE rea.data_de_realizacao IS NOT NULL
+ORDER BY rea.data_de_realizacao - rea.data_de_solicitacao
 LIMIT 5;
 
 -- 4.3) Liste os serviços que podem ser realizados pelos usuários
 
-SELECT usuario.nome, servico.classe
+SELECT usuario.nome, servico.classe, servico.nome
 FROM 
     usuario,
     perfil,
