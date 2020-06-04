@@ -18,7 +18,7 @@ LIMIT 5;
 
 SELECT usuario.nome, servico.classe
 FROM 
-    usuario
+    usuario,
     perfil,
 	possui,
 	pertence,

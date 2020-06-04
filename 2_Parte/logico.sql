@@ -23,7 +23,7 @@ CREATE TABLE perfil (
 CREATE TABLE servico (
     id_servico    INT NOT NULL PRIMARY KEY,
     nome    VARCHAR(255) NOT NULL,
-    classe    VARCHAR(255) NOT NULL CHECK (classe IN ('visualização', 'inserção', 'alteração', 'remoção')),
+    classe    VARCHAR(255) NOT NULL CHECK (classe IN ('visualização', 'inserção', 'alteração', 'remoção','solicitação')),
 	UNIQUE (nome, classe)
 );
 
@@ -36,11 +36,12 @@ CREATE TABLE paciente (
 	UNIQUE (cpf)
 );
 
--CREATE TABLE exame (
+CREATE TABLE exame (
     id_exame    INT NOT NULL PRIMARY KEY,
     tipo    VARCHAR(255) NOT NULL,
     virus    VARCHAR(255) NOT NULL,
 	UNIQUE (tipo, virus)
+);
 
 --Relacionamentos
 

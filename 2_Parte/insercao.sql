@@ -157,27 +157,27 @@ values (111,
 	   ),
 	   (311,
 		'consulta exame',
-		'consulta'
+		'visualização'
 	   ),
 	   (312,
 		'consulta amostra',
-		'consulta'
+		'visualização'
 	   ),
 	   (313,
 		'consulta usuário',
-		'consulta'
+		'visualização'
 	   ),
 	   (314,
 		'consulta paciente',
-		'consulta'
+		'visualização'
 	   ),
 	   (315,
 		'consulta servico',
-		'consulta'
+		'visualização'
 	   ),
 	   (316,
 		'consulta tutelamento',
-		'consulta'
+		'visualização'
 	   ),
 	   (411,
 		'altera exame',
