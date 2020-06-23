@@ -82,7 +82,7 @@ DATABASES = {
         'USER': '10692061',
         'PASSWORD': 'k6V*W#',
         'HOST': 'data.ime.usp.br',
-        'PORT': 52321,
+        'PORT': 53231,
     }
 }
 
