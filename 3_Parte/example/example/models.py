@@ -105,7 +105,7 @@ class Servico(models.Model):
 
 
 class Tutelamento(models.Model):
-    id_usuario_tutelado = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario_tutelado')
+    id_usuario_tutelado = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario_tutelado', related_name='id_usuario_tutelado')
     id_tutor = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_tutor')
     id_servico = models.ForeignKey(Servico, models.DO_NOTHING, db_column='id_servico')
     id_perfil = models.ForeignKey(Perfil, models.DO_NOTHING, db_column='id_perfil')
