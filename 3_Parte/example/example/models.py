@@ -16,6 +16,8 @@ class Exame(models.Model):
         managed = False
         db_table = 'exame'
         unique_together = (('tipo', 'virus'),)
+    def __str__(self):
+        return self.tipo
 
 class Perfil(models.Model):
     id_perfil = models.AutoField(primary_key=True)
@@ -25,6 +27,9 @@ class Perfil(models.Model):
     class Meta:
         managed = False
         db_table = 'perfil'
+    def __str__(self):
+        return self.tipo
+    
 
 
 class Gerencia(models.Model):
@@ -47,6 +52,8 @@ class Paciente(models.Model):
     class Meta:
         managed = False
         db_table = 'paciente'
+    def __str__(self):
+        return "{} - {}".format(self.nome, self.cpf)
 
 
 class Pertence(models.Model):
@@ -102,6 +109,8 @@ class Servico(models.Model):
         managed = False
         db_table = 'servico'
         unique_together = (('nome', 'classe'),)
+    def __str__(self):
+        return self.nome
 
 
 class Tutelamento(models.Model):
@@ -133,6 +142,8 @@ class Usuario(models.Model):
     class Meta:
         managed = False
         db_table = 'usuario'
+    def __str__(self):
+        return self.nome
 
 class Usuario_Possui_Perfil(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
