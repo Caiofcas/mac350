@@ -8,7 +8,7 @@
 from django.db import models
 
 class Exame(models.Model):
-    id_exame = models.IntegerField(primary_key=True)
+    id_exame = models.AutoField(primary_key=True)
     tipo = models.CharField(max_length=255)
     virus = models.CharField(max_length=255)
 
@@ -18,7 +18,7 @@ class Exame(models.Model):
         unique_together = (('tipo', 'virus'),)
 
 class Perfil(models.Model):
-    id_perfil = models.IntegerField(primary_key=True)
+    id_perfil = models.AutoField(primary_key=True)
     codigo = models.CharField(unique=True, max_length=255)
     tipo = models.CharField(max_length=255, blank=True, null=True)
 
@@ -38,7 +38,7 @@ class Gerencia(models.Model):
 
 
 class Paciente(models.Model):
-    id_paciente = models.IntegerField(primary_key=True)
+    id_paciente = models.AutoField(primary_key=True)
     cpf = models.CharField(unique=True, max_length=11)
     nome = models.CharField(max_length=255)
     endereco = models.CharField(max_length=255)
@@ -94,7 +94,7 @@ class Registro(models.Model):
 
 
 class Servico(models.Model):
-    id_servico = models.IntegerField(primary_key=True)
+    id_servico = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255)
     classe = models.CharField(max_length=255)
 
@@ -119,7 +119,7 @@ class Tutelamento(models.Model):
 
 
 class Usuario(models.Model):
-    id_usuario = models.IntegerField(primary_key=True)
+    id_usuario = models.AutoField(primary_key=True)
     cpf = models.CharField(unique=True, max_length=11)
     nome = models.CharField(max_length=255)
     area_de_pesquisa = models.CharField(max_length=255, blank=True, null=True)
@@ -127,12 +127,16 @@ class Usuario(models.Model):
     data_de_nascimento = models.DateField(blank=True, null=True)
     login = models.CharField(max_length=255)
     senha = models.CharField(max_length=255)
+    perfis = models.ManyToManyField(Perfil, through='Usuario_Possui_Perfil')
     id_tutor = models.ForeignKey('self', models.DO_NOTHING, db_column='id_tutor', blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'usuario'
 
+class Usuario_Possui_Perfil(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
+    perfil = models.ForeignKey(Perfil, on_delete=models.PROTECT)
 
 class Amostra(models.Model):
     id_paciente = models.ForeignKey('Paciente', models.DO_NOTHING, db_column='id_paciente')
