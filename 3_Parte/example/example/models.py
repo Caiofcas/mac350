@@ -52,7 +52,7 @@ class Exame(models.Model):
         unique_together = (('tipo', 'virus'),)
 
     def __str__(self):
-        return self.tipo
+        return self.tipo + " - " + self.virus
 
 class Perfil(models.Model):
 
