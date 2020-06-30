@@ -9,10 +9,6 @@ class Pessoa(models.Model):
     data_de_nascimento = models.DateField(blank=True, null=True)
     endereco = models.CharField(max_length=255)
 
-    class Meta:
-        managed = False
-        db_table = 'pessoa'
-
     def __str__(self):
         return self.nome
 
@@ -25,19 +21,12 @@ class Usuario(models.Model):
     senha = models.CharField(max_length=255)
     id_tutor = models.ForeignKey('self', models.DO_NOTHING, db_column='id_tutor', blank=True, null=True)
 
-    class Meta:
-        db_table = 'usuario'
-
     def __str__(self):
         return self.login
 
 class Paciente(models.Model):
     id_paciente = models.AutoField(primary_key=True)
     cpf_pessoa = models.OneToOneField('Pessoa', models.DO_NOTHING, db_column='cpf_pessoa')
-
-    class Meta:
-        managed = False
-        db_table = 'paciente'
 
     def __str__(self):
         return str(self.cpf_pessoa)
@@ -47,10 +36,6 @@ class Exame(models.Model):
     tipo = models.CharField(max_length=255)
     virus = models.CharField(max_length=255)
 
-    class Meta:
-        db_table = 'exame'
-        unique_together = (('tipo', 'virus'),)
-
     def __str__(self):
         return self.tipo + " - " + self.virus
 
@@ -58,9 +43,6 @@ class Perfil(models.Model):
     id_perfil = models.AutoField(primary_key=True)
     codigo = models.CharField(unique=True, max_length=255)
     tipo = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        db_table = 'perfil'
 
     def __str__(self):
         return self.tipo
@@ -72,18 +54,10 @@ class Registro(models.Model):
     id_servico = models.ForeignKey('Servico', models.DO_NOTHING, db_column='id_servico')
     id_exame = models.ForeignKey(Exame, models.DO_NOTHING, db_column='id_exame')
 
-    class Meta:
-        managed = False
-        db_table = 'registro'
-
 class Servico(models.Model):
     id_servico = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255)
     classe = models.CharField(max_length=255)
-
-    class Meta:
-        db_table = 'servico'
-        unique_together = (('nome', 'classe'),)
 
     def __str__(self):
         return self.nome
