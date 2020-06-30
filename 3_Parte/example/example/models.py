@@ -19,6 +19,10 @@ class Usuario(models.Model):
     instituicao = models.CharField(max_length=255, blank=True, null=True)
     login = models.CharField(max_length=255)
     senha = models.CharField(max_length=255)
+
+    # Relação Possui
+    possui_perfil = models.ManyToManyField('Perfil')
+
     id_tutor = models.ForeignKey('self', models.DO_NOTHING, db_column='id_tutor', blank=True, null=True)
 
     def __str__(self):
@@ -44,6 +48,9 @@ class Perfil(models.Model):
     codigo = models.CharField(unique=True, max_length=255)
     tipo = models.CharField(max_length=255, blank=True, null=True)
 
+    # Relação Pertence
+    servicos_per = models.ManyToManyField('Servico')
+
     def __str__(self):
         return self.tipo
 
@@ -58,6 +65,9 @@ class Servico(models.Model):
     id_servico = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255)
     classe = models.CharField(max_length=255)
+
+    # Relação Gerencia
+    ger_exames = models.ManyToManyField(Exame)
 
     def __str__(self):
         return self.nome
@@ -78,33 +88,33 @@ class Amostra(models.Model):
 
 # Relações
 
-class Gerencia(models.Model):
-    id_servico = models.ForeignKey('Servico', models.DO_NOTHING, db_column='id_servico')
-    id_exame = models.ForeignKey(Exame, models.DO_NOTHING, db_column='id_exame')
+# class Gerencia(models.Model):
+#     id_servico = models.ForeignKey('Servico', models.DO_NOTHING, db_column='id_servico')
+#     id_exame = models.ForeignKey(Exame, models.DO_NOTHING, db_column='id_exame')
 
-    class Meta:
-        managed = False
-        db_table = 'gerencia'
-        unique_together = (('id_servico', 'id_exame'),)
+#     class Meta:
+#         managed = False
+#         db_table = 'gerencia'
+#         unique_together = (('id_servico', 'id_exame'),)
 
-class Pertence(models.Model):
-    id_servico = models.ForeignKey('Servico', models.DO_NOTHING, db_column='id_servico')
-    id_perfil = models.ForeignKey(Perfil, models.DO_NOTHING, db_column='id_perfil')
+# class Pertence(models.Model):
+#     id_servico = models.ForeignKey('Servico', models.DO_NOTHING, db_column='id_servico')
+#     id_perfil = models.ForeignKey(Perfil, models.DO_NOTHING, db_column='id_perfil')
 
-    class Meta:
-        managed = False
-        db_table = 'pertence'
-        unique_together = (('id_servico', 'id_perfil'),)
+#     class Meta:
+#         managed = False
+#         db_table = 'pertence'
+#         unique_together = (('id_servico', 'id_perfil'),)
 
-class Possui(models.Model):
-    id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario',primary_key=True)
-    # id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario')
-    id_perfil = models.ForeignKey(Perfil, models.DO_NOTHING, db_column='id_perfil')
+# class Possui(models.Model):
+#     id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario',primary_key=True)
+#     # id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario')
+#     id_perfil = models.ForeignKey(Perfil, models.DO_NOTHING, db_column='id_perfil')
 
-    class Meta:
-        managed = False
-        db_table = 'possui'
-        unique_together = (('id_usuario', 'id_perfil'),)
+#     class Meta:
+#         managed = False
+#         db_table = 'possui'
+#         unique_together = (('id_usuario', 'id_perfil'),)
 
 class Realiza(models.Model):
     id_paciente = models.ForeignKey(Paciente, models.DO_NOTHING, db_column='id_paciente')
