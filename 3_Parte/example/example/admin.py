@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Usuario, Perfil, Usuario_Possui_Perfil
+from .models import Usuario, Perfil, Possui, Exame
 
 class PerfilInline(admin.TabularInline):
-    model = Usuario_Possui_Perfil
+    model = Possui
     extra = 1
 
 class UsuarioAdmin(admin.ModelAdmin):
