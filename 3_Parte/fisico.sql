@@ -99,17 +99,17 @@ CREATE TABLE realiza (
     id_exame    INT NOT NULL references exame(id_exame),
     codigo_amostra    VARCHAR(255),
     data_de_solicitacao TIMESTAMP,
-    data_de_realizacao TIMESTAMP,
 	UNIQUE (id_paciente, id_exame, data_de_realizacao)
 );
 
 
 --Relacionamento registro
 CREATE TABLE registro (
+    id_registro INT NOT NULL PRIMARY KEY,
     id_usuario INT NOT NULL references usuario(id_usuario),
     id_servico INT NOT NULL references servico(id_servico),
     id_exame INT NOT NULL references exame(id_exame),
-    UNIQUE (id_servico,id_usuario,id_exame)
+    data_de_realizacao TIMESTAMP
 );
 
 

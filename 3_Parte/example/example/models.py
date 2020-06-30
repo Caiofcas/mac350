@@ -55,7 +55,7 @@ class Exame(models.Model):
         return self.tipo + " - " + self.virus
 
 class Perfil(models.Model):
-
+    id_perfil = models.AutoField(primary_key=True)
     codigo = models.CharField(unique=True, max_length=255)
     tipo = models.CharField(max_length=255, blank=True, null=True)
 
@@ -66,6 +66,8 @@ class Perfil(models.Model):
         return self.tipo
 
 class Registro(models.Model):
+    id_registro = models.AutoField(primary_key=True)
+    data_de_realizacao = models.DateTimeField(blank=True, null=True)
     id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario')
     id_servico = models.ForeignKey('Servico', models.DO_NOTHING, db_column='id_servico')
     id_exame = models.ForeignKey(Exame, models.DO_NOTHING, db_column='id_exame')
@@ -73,7 +75,6 @@ class Registro(models.Model):
     class Meta:
         managed = False
         db_table = 'registro'
-        unique_together = (('id_servico', 'id_usuario', 'id_exame'),)
 
 class Servico(models.Model):
     id_servico = models.AutoField(primary_key=True)
@@ -122,7 +123,8 @@ class Pertence(models.Model):
         unique_together = (('id_servico', 'id_perfil'),)
 
 class Possui(models.Model):
-    id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario')
+    id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario',primary_key=True)
+    # id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario')
     id_perfil = models.ForeignKey(Perfil, models.DO_NOTHING, db_column='id_perfil')
 
     class Meta:
@@ -135,12 +137,11 @@ class Realiza(models.Model):
     id_exame = models.ForeignKey(Exame, models.DO_NOTHING, db_column='id_exame')
     codigo_amostra = models.CharField(max_length=255, blank=True, null=True)
     data_de_solicitacao = models.DateTimeField(blank=True, null=True)
-    data_de_realizacao = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'realiza'
-        unique_together = (('id_paciente', 'id_exame', 'data_de_realizacao'),)
+        unique_together = (('id_paciente', 'id_exame', 'data_de_solicitacao'),)
 
 class Tutelamento(models.Model):
     id_usuario_tutelado = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario_tutelado', related_name='id_usuario_tutelado')

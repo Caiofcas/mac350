@@ -491,40 +491,34 @@ values
 	1111,
 	11111,
 	'abcde11',
-	to_date('2020 02 10', 'YYYY MM DD'),
-	to_date('2020 02 11', 'YYYY MM DD')
+	to_date('2020 02 10', 'YYYY MM DD')
 ),
 (
 	1111,
 	11112,
-	'abcde12',
+	NULL,
 	to_date('2020 05 30', 'YYYY MM DD'),
-	to_date('2020 06 02', 'YYYY MM DD')
 ),
 (
 	1111,
 	11113,
-	'abcde13',
-	to_date('2020 05 29', 'YYYY MM DD'),
+	NULL,
 	to_date('2020 06 02', 'YYYY MM DD')
 ),
 (	1111,
 	11114,
-	'abcde14',
-	to_date('2020 05 28', 'YYYY MM DD'),
+	NULL,
 	to_date('2020 06 02', 'YYYY MM DD')
 ),
 (	1111,
 	11115,
-	'abcde15',
-	to_date('2020 05 27', 'YYYY MM DD'),
+	NULL,
 	to_date('2020 05 28', 'YYYY MM DD')
 ),
 (
 	1111,
 	11116,
-	'abcde16',
-	to_date('2020 05 20', 'YYYY MM DD'),
+	NULL,
 	to_date('2020 05 27', 'YYYY MM DD')
 ),
 (
@@ -532,7 +526,6 @@ values
 	11111,
 	NULL,
 	to_date('2020 05 20', 'YYYY MM DD'),
-	NULL
 );
 
 --Agregados
@@ -551,62 +544,87 @@ values (
 insert into registro
 values
 (
+	91,
 	1,
 	211,
-	11111
+	11111,
+	to_date('2020 02 11', 'YYYY MM DD')
 ),
 (
+	92,
 	1,
 	211,
-	11112
+	11112,
+	to_date('2020 06 02', 'YYYY MM DD')
 ),
 (
+	93,
 	1,
 	211,
-	11113
+	11113,
+	to_date('2020 08 02', 'YYYY MM DD')
 ),
 (
+	94,
 	1,
 	211,
-	11114
+	11114,
+	to_date('2020 10 02', 'YYYY MM DD')
 ),
 (
+	95,
 	1,
 	211,
-	11115
+	11115,
+	to_date('2020 06 10', 'YYYY MM DD')
 ),
 (
+	96,
 	1,
 	211,
-	11116
+	11116,
+	to_date('2020 07 07', 'YYYY MM DD')
+
 ),
 (
+	97,
 	1,
 	111,
-	11111
+	11111,
+	to_date('2020 07 12', 'YYYY MM DD')
 ),
 (
+	98,
 	1,
 	111,
-	11112
+	11112,
+	to_date('2020 01 02', 'YYYY MM DD')
 ),
 (
+	99,
 	1,
 	111,
-	11113
+	11113,
+	to_date('2020 02 22', 'YYYY MM DD')
 ),
 (
+	910,
 	1,
 	111,
-	11114
+	11114,
+	to_date('2020 06 02', 'YYYY MM DD')
 ),
 (
+	911,
 	1,
 	311,
-	11115
+	11115,
+	to_date('2020 06 28', 'YYYY MM DD')
 ),
 (
+	912,
 	2,
 	111,
-	11116
+	11116,
+	to_date('2020 06 02', 'YYYY MM DD')
 );
