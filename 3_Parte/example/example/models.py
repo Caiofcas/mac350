@@ -34,7 +34,10 @@ class Usuario(models.Model):
 
     def __str__(self):
         return self.login
-
+        
+    def get_person_name(self):
+        return self.cpf_pessoa
+    get_person_name.short_description = "Nome"
 
 class Paciente(models.Model):
 
