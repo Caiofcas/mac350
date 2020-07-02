@@ -121,15 +121,16 @@ class Realiza(models.Model):
     codigo_amostra = models.ForeignKey(
         'Amostra', blank=True, null=True, on_delete=models.SET_NULL)
     data_de_solicitacao = models.DateTimeField()
+    data_de_realizacao = models.DateTimeField(blank=True, null=True)
 
     class Meta():
-        unique_together = (('id_paciente', 'id_exame', 'codigo_amostra'),)
+        unique_together = (('id_paciente', 'id_exame', 'data_de_solicitacao'),)
 
 
 class Registro(models.Model):
 
     id_registro = models.AutoField(primary_key=True)
-    data_de_realizacao = models.DateTimeField()
+    data = models.DateTimeField()
     id_usuario = models.ForeignKey('Usuario', on_delete=models.DO_NOTHING)
     id_servico = models.ForeignKey('Servico', on_delete=models.DO_NOTHING)
     id_exame = models.ForeignKey('Exame', on_delete=models.DO_NOTHING)
