@@ -10,8 +10,16 @@ def index(request):
     return HttpResponse("MAC0350/2020: Data Management Example")
 
 def query1(request):
+    """
+    Returns all users, joined with valuable info
+    stored on the table "Pessoa"
+    """
     with connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM example_usuario')
+        cursor.execute('SELECT * FROM (\
+            example_usuario as u \
+            JOIN\
+            example_pessoa as p \
+            ON u.cpf_pessoa_id = p.cpf)')
         result = named_tuple_fetchall(cursor)
     
     template = loader.get_template('example/query1.html')
