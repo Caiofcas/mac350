@@ -11,8 +11,8 @@ def index(request):
 
 def query1(request):
     """
-    Returns all users, joined with valuable info
-    stored on the table "Pessoa"
+    Lists CPF, name, login, birth date and area of
+    research
     """
     with connection.cursor() as cursor:
         cursor.execute('SELECT * FROM (\
@@ -28,6 +28,9 @@ def query1(request):
     return HttpResponse(template.render(context, request))
 
 def query2(request):
+    """
+    Lists name, login and profile of a user
+    """
     with connection.cursor() as cursor:
         cursor.execute('SELECT * FROM (((\
             example_usuario as u \
