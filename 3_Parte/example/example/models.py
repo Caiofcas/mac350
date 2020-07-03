@@ -26,7 +26,7 @@ class Usuario(models.Model):
     senha = models.CharField(max_length=255)
 
     # Relação Possui
-    possui_perfil = models.ManyToManyField('Perfil')
+    possui_perfil = models.ManyToManyField('Perfil', through='Usuario_Possui_Perfil')
 
     # Tutoria
     id_tutor = models.ForeignKey(
@@ -48,6 +48,16 @@ class Paciente(models.Model):
     def __str__(self):
         return str(self.cpf_pessoa)
 
+class Usuario_Possui_Perfil(models.Model):
+    usuario = models.ForeignKey('Usuario', on_delete=models.PROTECT)
+    perfil = models.ForeignKey('Perfil', on_delete=models.PROTECT)
+    
+    class Meta:
+        constraints = [
+                models.UniqueConstraint(fields=['usuario', 'perfil'], name='unique_usuario_perfil')
+                ]
+
+
 
 class Exame(models.Model):
 
@@ -65,6 +75,7 @@ class Exame(models.Model):
 class Perfil(models.Model):
 
     id_perfil = models.AutoField(primary_key=True)
+    usuario_com_perfil = models.ManyToManyField('Usuario', through='Usuario_Possui_Perfil')
     codigo = models.CharField(unique=True, max_length=255)
     tipo = models.CharField(max_length=255, blank=True, null=True)
 
