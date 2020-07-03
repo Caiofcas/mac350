@@ -29,14 +29,17 @@ def query1(request):
 
 def query2(request):
     with connection.cursor() as cursor:
-        cursor.execute('\
-                SELECT u.nome, u.login, u.cpf, string_agg(p.tipo, \', \') as perfis FROM example_usuario as u\
-                LEFT JOIN example_usuario_possui_perfil as possui\
-                ON u.id = possui.usuario_id\
-                JOIN example_perfil as p\
-                ON possui.perfil_id = p.id\
-                GROUP BY u.nome, u.login, u.cpf\
-                ')
+        cursor.execute('SELECT * FROM (((\
+            example_usuario as u \
+            JOIN \
+            example_usuario_possui_perfil as possui\
+            ON u.id_usuario = possui.usuario_id)\
+            JOIN\
+            example_perfil as perf\
+            ON possui.perfil_id = perf.id_perfil)\
+            JOIN \
+            example_pessoa as p \
+            ON u.cpf_pessoa_id = p.cpf)')
         result = named_tuple_fetchall(cursor)
     print(result)
     template = loader.get_template('example/query2.html')
