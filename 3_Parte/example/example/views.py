@@ -46,6 +46,9 @@ def query2(request):
     context = {'query2_result_list': result,}
     
     return HttpResponse(template.render(context, request))
+
+def query3(request):
+    return HttpResponse("Query 3")
 #metodos auxiliares
 
 def named_tuple_fetchall(cursor):
