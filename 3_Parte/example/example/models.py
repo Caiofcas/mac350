@@ -80,10 +80,19 @@ class Perfil(models.Model):
     tipo = models.CharField(max_length=255, blank=True, null=True)
 
     # Relação Pertence
-    servicos_per = models.ManyToManyField('Servico')
+    servicos_per = models.ManyToManyField('Servico', through="Pertence")
 
     def __str__(self):
         return self.tipo
+
+class Pertence(models.Model):
+    perfil = models.ForeignKey('Perfil', on_delete=models.PROTECT)
+    servicos = models.ForeignKey('Servico', on_delete=models.PROTECT)
+    
+    class Meta:
+        constraints = [
+                models.UniqueConstraint(fields=['perfil', 'servicos'], name='unique_perfil_servicos')
+                ]
 
 
 class Servico(models.Model):
@@ -101,7 +110,7 @@ class Servico(models.Model):
     id_servico = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255)
     classe = models.CharField(max_length=255, choices=CLASSE_CHOICES)
-
+    perfil_com_acesso = models.ManyToManyField("Perfil", through="Pertence")
     # Relação Gerencia
     ger_exames = models.ManyToManyField('Exame')
 
