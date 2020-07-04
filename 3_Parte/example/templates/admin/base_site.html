@@ -1,0 +1,30 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Admin - Projeto final MAC0350</a></h1>
+<nav>
+    <ul>
+            <li>
+                <a href="{% url 'query1' %}">
+                    Ver usuários
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'query2' %}">
+                    Lista de usuários com respectivo perfil e serviços disponíveis
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'query3' %}">
+                    Ver tutores e tutorandos
+                </a>
+            </li>
+
+    </ul>
+</nav>
+{% endblock %}
+
+{% block nav-global %}
+{% endblock %}
