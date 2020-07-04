@@ -49,8 +49,8 @@ class Paciente(models.Model):
         return str(self.cpf_pessoa)
 
 class Usuario_Possui_Perfil(models.Model):
-    usuario = models.ForeignKey('Usuario', on_delete=models.PROTECT)
-    perfil = models.ForeignKey('Perfil', on_delete=models.PROTECT)
+    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
+    perfil = models.ForeignKey('Perfil', on_delete=models.CASCADE)
     
     class Meta:
         constraints = [
@@ -86,8 +86,8 @@ class Perfil(models.Model):
         return self.tipo
 
 class Pertence(models.Model):
-    perfil = models.ForeignKey('Perfil', on_delete=models.PROTECT)
-    servicos = models.ForeignKey('Servico', on_delete=models.PROTECT)
+    perfil = models.ForeignKey('Perfil', on_delete=models.CASCADE)
+    servicos = models.ForeignKey('Servico', on_delete=models.CASCADE)
     
     class Meta:
         constraints = [
@@ -129,7 +129,7 @@ class Amostra(models.Model):
     metodo_de_coleta = models.CharField(max_length=255)
     material = models.CharField(max_length=255)
 
-    id_paciente = models.ForeignKey('Paciente', on_delete=models.CASCADE)
+    id_paciente = models.ForeignKey('Paciente', on_delete=models.SET_NULL, null=True)
     id_exame = models.ForeignKey('Exame', on_delete=models.CASCADE)
 
 
