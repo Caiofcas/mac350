@@ -29,22 +29,22 @@ def query1(request):
 
 def query2(request):
     """
-    Lists name, login and profile of a user
+    Lists name, profile and available services
     """
     with connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM (((\
-            example_usuario as u \
-            JOIN \
-            example_usuario_possui_perfil as possui\
-            ON u.id_usuario = possui.usuario_id)\
-            JOIN\
-            example_perfil as perf\
-            ON possui.perfil_id = perf.id_perfil)\
-            JOIN \
-            example_pessoa as p \
-            ON u.cpf_pessoa_id = p.cpf)')
+
+        query = 'SELECT p.nome as nome_pessoa, perf.tipo, \
+            serv.nome FROM (example_usuario as u JOIN \
+            example_usuario_possui_perfil as possui ON \
+            u.id_usuario = possui.usuario_id JOIN \
+            example_perfil as perf ON possui.perfil_id = \
+            perf.id_perfil JOIN example_pessoa as p ON \
+            u.cpf_pessoa_id = p.cpf JOIN example_pertence \
+            as pertence ON pertence.perfil_id = \
+            perf.id_perfil JOIN example_servico as serv ON \
+            pertence.servicos_id = serv.id_servico)'
+        cursor.execute(query)
         result = named_tuple_fetchall(cursor)
-    print(result)
     template = loader.get_template('example/query2.html')
     context = {'query2_result_list': result,}
     

@@ -10,10 +10,9 @@
     <p>TOTAL: {{query2_result_list | length}}</p>
     {% for row in query2_result_list %}
     <ul>
-      <li><p>CPF: {{row.cpf}}</p> </li>
-      <li><p>nome: {{row.nome}}</p> </li>
-      <li><p>login: {{row.login}}</p> </li>
+      <li><p>nome: {{row.nome_pessoa}}</p> </li>
       <li><p>perfis: {{row.tipo}}</p> </li>
+      <li><p>Serviço: {{row.nome}}</p> </li>
     </ul>
     <br>
     {% endfor %}
