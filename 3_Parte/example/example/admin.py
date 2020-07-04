@@ -8,7 +8,7 @@ class PerfilInline(admin.TabularInline):
 class ServicoInline(admin.TabularInline):
     model = Pertence
     extra = 1
-class TutelamentoInline(admin.TabularInline):
+class TutelamentoInline(admin.StackedInline):
     model = Tutelamento
     extra = 1
     fk_name = "id_usuario_tutelado"
