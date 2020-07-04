@@ -29,8 +29,8 @@ class Usuario(models.Model):
     possui_perfil = models.ManyToManyField('Perfil', through='Usuario_Possui_Perfil')
 
     # Tutoria
-    id_tutor = models.ForeignKey(
-        'self', blank=True, null=True, on_delete=models.SET_NULL)
+    #id_tutor = models.ForeignKey(
+    #    'Tutelamento', blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.login
