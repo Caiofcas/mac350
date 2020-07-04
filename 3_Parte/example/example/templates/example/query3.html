@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Query 2</title>
+  <title>Query 3</title>
 </head>
 <body>
-  <h1>Resultado da Query 3</h1>
+  <h1>Tutores e tutorados</h1>
   <p>Query 3</p>
-  {% if query2_result_list %}
-    <p>TOTAL: {{query2_result_list | length}}</p>
-    {% for row in query2_result_list %}
+  {% if query3_result_list %}
+    <p>TOTAL: {{query3_result_list | length}}</p>
+    {% for row in query3_result_list %}
     <ul>
+      <li>
+        Tutor: {{row.tutor}}, Tutorado: {{row.tutorado}}
+      </li>
     </ul>
     <br>
     {% endfor %}

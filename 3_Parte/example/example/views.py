@@ -51,7 +51,22 @@ def query2(request):
     return HttpResponse(template.render(context, request))
 
 def query3(request):
-    return HttpResponse("Query 3")
+    """
+        Returns the user ands its tutor
+    """
+    query = "SELECT pessoa_tutorada.nome as tutor, pessoa_tutora.nome as tutorado FROM example_usuario as tutorado JOIN \
+        example_tutelamento as tutelamento ON tutorado.id_usuario = tutelamento.id_usuario_tutelado_id JOIN \
+        example_usuario as tutor ON tutor.id_usuario = tutelamento.id_tutor_id JOIN example_pessoa as pessoa_tutorada \
+        ON pessoa_tutorada.cpf = tutorado.cpf_pessoa_id JOIN \
+        example_pessoa as pessoa_tutora ON pessoa_tutorada.cpf = tutorado.cpf_pessoa_id"
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        result = named_tuple_fetchall(cursor)
+    template = loader.get_template('example/query3.html')
+    context = {'query3_result_list': result,}
+    
+    return HttpResponse(template.render(context, request))
+
 #metodos auxiliares
 
 def named_tuple_fetchall(cursor):
