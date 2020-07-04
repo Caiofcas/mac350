@@ -4,6 +4,9 @@
   <title>Query 2</title>
 </head>
 <body>
+  <nav>
+    <a href="{% url 'admin:index' %}"> Voltar para admin</a>
+  </nav>
   <h1>Resultado da Query 2</h1>
   <p>Lista de Usuarios</p>
   {% if query2_result_list %}
