@@ -26,17 +26,16 @@ class Usuario(models.Model):
     senha = models.CharField(max_length=255)
 
     # Relação Possui
-    possui_perfil = models.ManyToManyField('Perfil', through='Usuario_Possui_Perfil')
-
-    # Tutoria
-    #id_tutor = models.ForeignKey(
-    #    'Tutelamento', blank=True, null=True, on_delete=models.SET_NULL)
+    possui_perfil = models.ManyToManyField(
+        'Perfil', through='Usuario_Possui_Perfil')
 
     def __str__(self):
         return self.get_person_name().nome
+
     def get_person_name(self):
         return self.cpf_pessoa
     get_person_name.short_description = "Nome"
+
 
 class Paciente(models.Model):
 
@@ -47,15 +46,16 @@ class Paciente(models.Model):
     def __str__(self):
         return str(self.cpf_pessoa)
 
+
 class Usuario_Possui_Perfil(models.Model):
     usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
     perfil = models.ForeignKey('Perfil', on_delete=models.CASCADE)
-    
+
     class Meta:
         constraints = [
-                models.UniqueConstraint(fields=['usuario', 'perfil'], name='unique_usuario_perfil')
-                ]
-
+            models.UniqueConstraint(
+                fields=['usuario', 'perfil'], name='unique_usuario_perfil')
+        ]
 
 
 class Exame(models.Model):
@@ -64,7 +64,8 @@ class Exame(models.Model):
     tipo = models.CharField(max_length=255)
     virus = models.CharField(max_length=255)
 
-    servico_correspondente = models.ManyToManyField('Servico', through='Servico_com_exame')
+    servico_correspondente = models.ManyToManyField(
+        'Servico', through='Servico_com_exame')
 
     class Meta():
         unique_together = (('tipo', 'virus'),)
@@ -76,7 +77,8 @@ class Exame(models.Model):
 class Perfil(models.Model):
 
     id_perfil = models.AutoField(primary_key=True)
-    usuario_com_perfil = models.ManyToManyField('Usuario', through='Usuario_Possui_Perfil')
+    usuario_com_perfil = models.ManyToManyField(
+        'Usuario', through='Usuario_Possui_Perfil')
     codigo = models.CharField(unique=True, max_length=255)
     tipo = models.CharField(max_length=255, blank=True, null=True)
 
@@ -86,14 +88,16 @@ class Perfil(models.Model):
     def __str__(self):
         return self.tipo
 
+
 class Pertence(models.Model):
     perfil = models.ForeignKey('Perfil', on_delete=models.CASCADE)
     servicos = models.ForeignKey('Servico', on_delete=models.CASCADE)
-    
+
     class Meta:
         constraints = [
-                models.UniqueConstraint(fields=['perfil', 'servicos'], name='unique_perfil_servicos')
-                ]
+            models.UniqueConstraint(
+                fields=['perfil', 'servicos'], name='unique_perfil_servicos')
+        ]
 
 
 class Servico(models.Model):
@@ -113,7 +117,8 @@ class Servico(models.Model):
     classe = models.CharField(max_length=255, choices=CLASSE_CHOICES)
     perfil_com_acesso = models.ManyToManyField("Perfil", through="Pertence")
     # Relação Gerencia
-    ger_exames = models.ManyToManyField('Exame', verbose_name="Gerencia exames", through="Servico_com_exame")
+    ger_exames = models.ManyToManyField(
+        'Exame', verbose_name="Gerencia exames", through="Servico_com_exame")
 
     class Meta():
         unique_together = (('nome', 'classe'),)
@@ -121,9 +126,11 @@ class Servico(models.Model):
     def __str__(self):
         return self.nome
 
+
 class Servico_com_exame(models.Model):
     servico = models.ForeignKey('Servico', on_delete=models.CASCADE)
     exame = models.ForeignKey('Exame', on_delete=models.CASCADE)
+
     class Meta():
         unique_together = (('servico', 'exame'),)
 
@@ -136,7 +143,8 @@ class Amostra(models.Model):
     metodo_de_coleta = models.CharField(max_length=255)
     material = models.CharField(max_length=255)
 
-    id_paciente = models.ForeignKey('Paciente', on_delete=models.SET_NULL, null=True)
+    id_paciente = models.ForeignKey(
+        'Paciente', on_delete=models.SET_NULL, null=True)
     id_exame = models.ForeignKey('Exame', on_delete=models.CASCADE)
 
 
@@ -174,8 +182,10 @@ class Tutelamento(models.Model):
         'Usuario', on_delete=models.CASCADE, related_name='tutor', verbose_name="Tutor")
     id_usuario_tutelado = models.ForeignKey(
         'Usuario', on_delete=models.CASCADE, related_name='tutelado', verbose_name="Tutorado")
-    id_servico = models.ForeignKey('Servico', on_delete=models.CASCADE, verbose_name="Serviço disponível ao tutorado")
-    id_perfil = models.ForeignKey('Perfil', on_delete=models.CASCADE, verbose_name="Perfil herdado pelo tutorado")
+    id_servico = models.ForeignKey(
+        'Servico', on_delete=models.CASCADE, verbose_name="Serviço disponível ao tutorado")
+    id_perfil = models.ForeignKey(
+        'Perfil', on_delete=models.CASCADE, verbose_name="Perfil herdado pelo tutorado")
     data_de_inicio = models.DateField()
     data_de_termino = models.DateField(blank=True, null=True)
 
