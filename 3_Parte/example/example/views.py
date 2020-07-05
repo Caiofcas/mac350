@@ -6,8 +6,10 @@ from django.db import connection
 from collections import namedtuple
 from django.template import loader
 
+
 def index(request):
     return HttpResponse("MAC0350/2020: Data Management Example")
+
 
 def query1(request):
     """
@@ -21,11 +23,12 @@ def query1(request):
             example_pessoa as p \
             ON u.cpf_pessoa_id = p.cpf)')
         result = named_tuple_fetchall(cursor)
-    
+
     template = loader.get_template('example/query1.html')
-    context = {'query1_result_list': result,}
-    
+    context = {'query1_result_list': result, }
+
     return HttpResponse(template.render(context, request))
+
 
 def query2(request):
     """
@@ -45,10 +48,22 @@ def query2(request):
             pertence.servicos_id = serv.id_servico)'
         cursor.execute(query)
         result = named_tuple_fetchall(cursor)
+
+    results_dict = {}  # key: Dict_key - val: str
+    Dict_key = namedtuple('Key', 'nome perfil')
+    for r in result:
+        key = Dict_key(r[0], r[1])
+        val = results_dict.get(key)
+        if val is None:
+            results_dict[key] = r[-1]
+        else:
+            results_dict[key] = ','.join([val, r[-1]])
+
     template = loader.get_template('example/query2.html')
-    context = {'query2_result_list': result,}
-    
+    context = {'query2_result_dict': results_dict, }
+
     return HttpResponse(template.render(context, request))
+
 
 def query3(request):
     """
@@ -63,11 +78,12 @@ def query3(request):
         cursor.execute(query)
         result = named_tuple_fetchall(cursor)
     template = loader.get_template('example/query3.html')
-    context = {'query3_result_list': result,}
-    
+    context = {'query3_result_list': result, }
+
     return HttpResponse(template.render(context, request))
 
-#metodos auxiliares
+# metodos auxiliares
+
 
 def named_tuple_fetchall(cursor):
     desc = cursor.description
