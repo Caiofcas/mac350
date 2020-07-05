@@ -1,10 +1,16 @@
 from django.contrib import admin
-from .models import Usuario, Perfil, Exame, Servico, Pessoa, Paciente, Usuario_Possui_Perfil, Pertence, Tutelamento
+from .models import Usuario, Perfil, Exame, Servico, Pessoa, Paciente, Usuario_Possui_Perfil, Pertence, Tutelamento, Servico_com_exame
 
 class PerfilInline(admin.TabularInline):
     model = Usuario_Possui_Perfil
     extra = 1
 
+class ExameInline(admin.StackedInline):
+    model = Servico_com_exame
+    extra = 1
+
+class ServicoAdmin(admin.ModelAdmin):
+    inlines = (ExameInline,)
 class ServicoInline(admin.TabularInline):
     model = Pertence
     extra = 1
@@ -22,6 +28,6 @@ class PerfilAdmin(admin.ModelAdmin):
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Perfil, PerfilAdmin)
 admin.site.register(Exame)
-admin.site.register(Servico)
+admin.site.register(Servico, ServicoAdmin)
 admin.site.register(Pessoa)
 admin.site.register(Paciente)

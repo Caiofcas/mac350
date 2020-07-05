@@ -64,6 +64,8 @@ class Exame(models.Model):
     tipo = models.CharField(max_length=255)
     virus = models.CharField(max_length=255)
 
+    servico_correspondente = models.ManyToManyField('Servico', through='Servico_com_exame')
+
     class Meta():
         unique_together = (('tipo', 'virus'),)
 
@@ -111,13 +113,19 @@ class Servico(models.Model):
     classe = models.CharField(max_length=255, choices=CLASSE_CHOICES)
     perfil_com_acesso = models.ManyToManyField("Perfil", through="Pertence")
     # Relação Gerencia
-    ger_exames = models.ManyToManyField('Exame', verbose_name="Gerencia exames")
+    ger_exames = models.ManyToManyField('Exame', verbose_name="Gerencia exames", through="Servico_com_exame")
 
     class Meta():
         unique_together = (('nome', 'classe'),)
 
     def __str__(self):
         return self.nome
+
+class Servico_com_exame(models.Model):
+    servico = models.ForeignKey('Servico', on_delete=models.CASCADE)
+    exame = models.ForeignKey('Exame', on_delete=models.CASCADE)
+    class Meta():
+        unique_together = (('servico', 'exame'),)
 
 # Agregados
 
