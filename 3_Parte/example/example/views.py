@@ -69,14 +69,27 @@ def query3(request):
     """
         Returns the user ands its tutor
     """
-    query = "SELECT pessoa_tutorada.nome as tutor, pessoa_tutora.nome as tutorado FROM example_usuario as tutorado JOIN \
-        example_tutelamento as tutelamento ON tutorado.id_usuario = tutelamento.id_usuario_tutelado_id JOIN \
-        example_usuario as tutor ON tutor.id_usuario = tutelamento.id_tutor_id JOIN example_pessoa as pessoa_tutorada \
-        ON pessoa_tutorada.cpf = tutorado.cpf_pessoa_id JOIN \
-        example_pessoa as pessoa_tutora ON pessoa_tutorada.cpf = tutorado.cpf_pessoa_id"
+    query = "SELECT pessoa_tutorada.nome as tutorado, pessoa_tutora.nome as tutor \
+            FROM example_usuario as usuario_tutelado \
+            JOIN         \
+                example_tutelamento as tutelamento \
+                ON usuario_tutelado.id_usuario = tutelamento.id_usuario_tutelado_id \
+            JOIN \
+                example_usuario as usuario_tutor \
+                ON usuario_tutor.id_usuario = tutelamento.id_tutor_id \
+            JOIN example_pessoa as pessoa_tutorada\
+                ON pessoa_tutorada.cpf = usuario_tutelado.cpf_pessoa_id \
+            JOIN \
+                example_pessoa as pessoa_tutora \
+                ON pessoa_tutora.cpf = usuario_tutor.cpf_pessoa_id"
+
     with connection.cursor() as cursor:
         cursor.execute(query)
         result = named_tuple_fetchall(cursor)
+
+    # remove duplicates
+    result = list(set(result))
+
     template = loader.get_template('example/query3.html')
     context = {'query3_result_list': result, }
 
