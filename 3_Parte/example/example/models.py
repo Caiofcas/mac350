@@ -19,7 +19,7 @@ class Usuario(models.Model):
 
     id_usuario = models.IntegerField(primary_key=True)
     cpf_pessoa = models.OneToOneField(
-        'Pessoa', to_field='cpf', on_delete=models.CASCADE)
+        'Pessoa', to_field='cpf', on_delete=models.CASCADE, verbose_name="Pessoa")
     area_de_pesquisa = models.CharField(max_length=255, blank=True, null=True)
     instituicao = models.CharField(max_length=255, blank=True, null=True)
     login = models.CharField(unique=True, max_length=255)
@@ -43,7 +43,7 @@ class Paciente(models.Model):
 
     id_paciente = models.AutoField(primary_key=True)
     cpf_pessoa = models.OneToOneField(
-        'Pessoa', to_field='cpf', on_delete=models.CASCADE)
+        'Pessoa', to_field='cpf', on_delete=models.CASCADE, verbose_name="Pessoa")
 
     def __str__(self):
         return str(self.cpf_pessoa)
@@ -112,7 +112,7 @@ class Servico(models.Model):
     classe = models.CharField(max_length=255, choices=CLASSE_CHOICES)
     perfil_com_acesso = models.ManyToManyField("Perfil", through="Pertence")
     # Relação Gerencia
-    ger_exames = models.ManyToManyField('Exame')
+    ger_exames = models.ManyToManyField('Exame', verbose_name="Gerencia exames")
 
     class Meta():
         unique_together = (('nome', 'classe'),)
@@ -164,11 +164,11 @@ class Tutelamento(models.Model):
     id_tutelamento = models.AutoField(primary_key=True)
 
     id_tutor = models.ForeignKey(
-        'Usuario', on_delete=models.CASCADE, related_name='tutor')
+        'Usuario', on_delete=models.CASCADE, related_name='tutor', verbose_name="Tutor")
     id_usuario_tutelado = models.ForeignKey(
-        'Usuario', on_delete=models.CASCADE, related_name='tutelado')
-    id_servico = models.ForeignKey('Servico', on_delete=models.CASCADE)
-    id_perfil = models.ForeignKey('Perfil', on_delete=models.CASCADE)
+        'Usuario', on_delete=models.CASCADE, related_name='tutelado', verbose_name="Tutorado")
+    id_servico = models.ForeignKey('Servico', on_delete=models.CASCADE, verbose_name="Serviço disponível ao tutorado")
+    id_perfil = models.ForeignKey('Perfil', on_delete=models.CASCADE, verbose_name="Perfil herdado pelo tutorado")
     data_de_inicio = models.DateField()
     data_de_termino = models.DateField(blank=True, null=True)
 
