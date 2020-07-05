@@ -33,8 +33,7 @@ class Usuario(models.Model):
     #    'Tutelamento', blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return self.login
-        
+        return self.get_person_name().nome
     def get_person_name(self):
         return self.cpf_pessoa
     get_person_name.short_description = "Nome"
